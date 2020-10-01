@@ -15,6 +15,7 @@ const basketReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_BASKET_ITEMS: {
       let stateCopy = { ...state };
+      stateCopy.isCart = true;
       stateCopy.items = [...action.items];
       return stateCopy;
     }
@@ -41,7 +42,7 @@ const basketReducer = (state = initialState, action) => {
       return stateCopy;
     }
     case DELETE_CART: {
-      let stateCopy = {...state};
+      let stateCopy = { ...state };
       stateCopy.items = [...state.items];
       stateCopy.items = stateCopy.items.filter((item) => item.id != action.id);
       return stateCopy;
@@ -50,7 +51,7 @@ const basketReducer = (state = initialState, action) => {
   }
 }
 
-export const deleteCart = (id) => ({type: DELETE_CART, id});
+export const deleteCart = (id) => ({ type: DELETE_CART, id });
 export const changeCart = (id, number, isBt) => ({ type: CHANGE_CART, id, number, isBt });
 export const setCost = () => ({ type: SET_COST });
 export const setBasketItems = (items) => ({ type: SET_BASKET_ITEMS, items });
@@ -58,15 +59,16 @@ export const setBasketItems = (items) => ({ type: SET_BASKET_ITEMS, items });
 export const setBasketItemsThunkCreator = () => {
   return async (dispatch) => {
     try {
-      let responce = await basketAPI.getBasket();
-      let cart = responce.data.map(element => {
-        element.number = 1;
-        return element;
-      });
+        let responce = await basketAPI.getBasket();
+        let cart = responce.data.map(element => {
+          element.number = 1;
+          return element;
+        });
+        dispatch(setBasketItems(cart));
+        dispatch(setCost());
+
       //let basketItems = await basketAPI.createBasket(responce.data);
       //dispatch(setBasketItems(basketItems.data));
-      dispatch(setBasketItems(cart));
-      dispatch(setCost());
     } catch (error) {
 
     }
