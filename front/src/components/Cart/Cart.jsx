@@ -26,26 +26,30 @@ const Cart = (props) => {
     props.deleteItem(props.item.id)
   }
   return (
-    <div>
-      <div className={"item"}>
-        <img src={`${props.item.img}`} />
-        <div>
-          <p>{props.item.title}</p>
+    <>
+      <div className={'cart'}>
+        <div className={"item"}>
+          <img src={props.item.image} />
+          <div className={'description'}>
+            <div>
+              <p>{props.item.title}</p>
+            </div>
+            <div>
+              <p>{props.item.description}</p>
+            </div>
+          </div>
         </div>
-        <div>
-          <p>{props.item.description}</p>
+        <div className={"change"}>
+          <div>
+            <button onClick={() => props.deleteItem(props.item.id)}>delete</button>
+          </div>
+          <button onClick={(e) => changePlus(e, 1)}>+</button>
+          <input className={'value'} tabindex="-1" name={props.item.title} id={props.item.id} ref={ref} onChange={(e) => change(e)} value={props.item.number} />
+          <button onClick={(e) => changePlus(e, -1)}>-</button>
         </div>
+        <hr />
       </div>
-      <div>
-        <button onClick={() => props.deleteItem(props.item.id)}>delete</button>
-      </div>
-
-      <button onClick={(e) => changePlus(e, 1)}>+</button>
-      <input tabindex="-1" name={props.item.title} id={props.item.id} ref={ref} onChange={(e) => change(e)} value={props.item.number} />
-      <button onClick={(e) => changePlus(e, -1)}>-</button>
-
-      <hr />
-    </div>
+    </>
   )
 }
 export default Cart;
