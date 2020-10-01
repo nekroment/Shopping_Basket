@@ -1,4 +1,4 @@
-import { basketAPI } from '../../api/api.js';
+import { basketAPI, userAPI } from '../../api/api.js';
 
 const SET_BASKET_ITEMS = 'SET_BASKET_ITEMS';
 const SET_COST = 'SET_COST';
@@ -54,15 +54,15 @@ export const setBasketItemsThunkCreator = () => {
   }
 };
 
-export const deleteBasketItemThunkCreator = (id = undefined) => {
+export const deleteBasketItemThunkCreator = (user = undefined, id = undefined) => {
   return async (dispatch) => {
-    let responce;
     try {
       if (id === undefined) {
-        responce = await basketAPI.deleteAll();
+        await basketAPI.deleteAll();
+        await userAPI.setUser(user);
         dispatch(setBasketItemsThunkCreator());
       } else {
-        responce = await basketAPI.deleteItem(id);
+        await basketAPI.deleteItem(id);
         dispatch(setBasketItemsThunkCreator());
       }
     } catch (error) {
@@ -74,7 +74,7 @@ export const changeBasketItemThunkCreator = (id, number, isBt = '') => {
   return async (dispatch) => {
     try {
       if (number <= 50 && number >= 0) {
-        let responce = await basketAPI.changeItem(id, number);
+        await basketAPI.changeItem(id, number);
         dispatch(setBasketItemsThunkCreator());
         dispatch(changeCart(id, isBt))
       }
