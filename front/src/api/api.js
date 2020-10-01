@@ -1,20 +1,21 @@
 import * as axios from 'axios';
+import { changeBasketItemThunkCreator } from '../redux/reducer/basketReducer';
 
 const instance = axios.create({
   baseURL: 'http://localhost:3000'
 });
 
 export const basketAPI = {
-  async getBasket() {
-    return await axios.get('https://fakestoreapi.com/products');
+  async getItems () {
+    return await instance.get('/cart');
   },
-  async createBasket(items) {
-    return await instance.post('/basket/create', {items});
-  },
-  async changeItem(id, number) {
-    return await instance.post('/basket/change', {id, number});
+  async changeItem (id, number) {
+    return await instance.post('/cart/change', {id, number});
   },
   async deleteItem(id) {
-    return await instance.delete(`/basket/${id}`)
+    return await instance.delete(`/cart/delete/${id}`);
+  },
+  async deleteAll(id) {
+    return await instance.delete(`/cart/delete/all`);
   }
 };
