@@ -1,5 +1,6 @@
 import React from 'react';
 import Cart from '../Cart/Cart.jsx';
+import { NavLink } from 'react-router-dom';
 
 const CartManager = (props) => {
 
@@ -15,7 +16,8 @@ const CartManager = (props) => {
     </div>
     <div>
       {props.cost}
-      <button>BUY</button>
+        <NavLink to='/shipping'><button>BUY</button></NavLink>
+      
     </div>
     </>
   )
