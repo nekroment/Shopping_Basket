@@ -6,7 +6,7 @@ const instance = axios.create({
 
 export const basketAPI = {
   async getBasket() {
-    return await axios.get('https://fakestoreapi.com/products/10');
+    return await axios.get('https://fakestoreapi.com/products');
   },
   async createBasket(items) {
     return await instance.post('/basket/create', {items});
