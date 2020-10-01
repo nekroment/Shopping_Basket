@@ -1,0 +1,49 @@
+.buy-form {
+    position: relative;
+}
+.buy-form form {
+    left: 30%;
+    right: 30%;
+    top: 40px;
+    position: absolute;
+}
+.buy-form input {
+    display: inline-block;
+    border: 1px solid gray;
+    width: 400px;
+    height: 20px;
+    margin-bottom: 10px;
+}
+.buy-form p {
+    position: relative;
+}
+.buy-form select {
+    font-size: larger;
+    display: inline-block;
+    border: 1px solid gray;
+    width: 405px;
+    height: 25px;
+    margin-bottom: 10px;
+}
+.buy-form span {
+    font-weight: bolder;
+    position: absolute;
+    left: -140px;
+}
+.pay-button {
+    margin-left: 300px;
+    position: absolute;
+    background-color: gray;
+    border-radius: 2px;
+    border: 1px solid black;
+    width: 100px;
+    height: 30px;
+
+}
+.pay-price {
+    margin-left: 310px;
+    margin-top: 50px;
+    position: absolute;
+    font-weight: bolder;
+    font-size: larger;
+}
