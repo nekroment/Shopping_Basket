@@ -1,19 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import './Cart.css';
 
 const Cart = (props) => {
 
-  const change = (number) => {
-    props.changeItem(props.item.id, number);
+  const ref = React.createRef();
+
+  useEffect(() => {
+    if (ref && props.focus == props.item.id) {
+      ref.current.focus()
+    }
+  })
+
+  const changePlus = (event, number) => {
+    event.preventDefault();
+    const plus = Number(props.item.number) + number;
+    props.changeItem(props.item.id, plus, 'plus');
+    ref.current.focus()
   }
 
-  const delete = () => {
+  const change = (event) => {
+    event.preventDefault();
+    props.changeItem(props.item.id, event.target.value);
+  }
+  const deleteCart = () => {
     props.deleteItem(props.item.id)
   }
-
-  return(
+  return (
     <div>
       <div className={"item"}>
-        <img src=`${props.img}` />
+        <img src={`${props.item.img}`} />
         <div>
           <p>{props.item.title}</p>
         </div>
@@ -22,16 +37,15 @@ const Cart = (props) => {
         </div>
       </div>
       <div>
-        <button onClick={delete}>delete</button>
+        <button onClick={() => props.deleteItem(props.item.id)}>delete</button>
       </div>
-      <form>
-        <button onClick={() => change(1)}>+</button>
-        <input />
-        <button onClick={() => change(1)}>-</button>
-      </form>
-      <hr/>
+
+      <button onClick={(e) => changePlus(e, 1)}>+</button>
+      <input tabindex="-1" name={props.item.title} id={props.item.id} ref={ref} onChange={(e) => change(e)} value={props.item.number} />
+      <button onClick={(e) => changePlus(e, -1)}>-</button>
+
+      <hr />
     </div>
   )
 }
-
 export default Cart;
