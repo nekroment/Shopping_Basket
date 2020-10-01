@@ -16,6 +16,13 @@ export const basketAPI = {
     return await instance.delete(`/cart/delete/${id}`);
   },
   async deleteAll(id) {
-    return await instance.delete(`/cart/delete/all`);
+    return await instance.delete(`/cart`);
   }
 };
+
+export const userAPI = {
+  async setUser ({name, address, phone, email, options, price}) {
+    debugger
+    return await instance.post('/user', {name, address, phone, email, options, price});
+  }
+}
