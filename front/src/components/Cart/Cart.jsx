@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './Cart.css';
+import trash from '../../img/trash.png';
 
 const Cart = (props) => {
 
   const ref = React.createRef();
+
+  const id = props.item.id;
 
   useEffect(() => {
     if (ref && props.focus == props.item.id) {
@@ -22,30 +25,33 @@ const Cart = (props) => {
     event.preventDefault();
     props.changeItem(props.item.id, event.target.value);
   }
-  const deleteCart = () => {
-    props.deleteItem(props.item.id)
-  }
+
   return (
     <>
       <div className={'cart'}>
-        <div className={"item"}>
-          <img src={props.item.image} />
-          <div className={'description'}>
-            <div>
-              <p>{props.item.title}</p>
-            </div>
-            <div>
-              <p>{props.item.description}</p>
+        <div className={"block"}>
+          <div className={"item"}>
+            <img className={'item-img'} src={props.item.image} />
+            <div className={'item-info'}>
+              <div className={"title"}>
+                <p>{props.item.title}</p>
+              </div>
+              <div className={"description"}>
+                <p>{props.item.description}</p>
+              </div>
             </div>
           </div>
-        </div>
-        <div className={"change"}>
-          <div>
-            <button onClick={() => props.deleteItem(props.item.id)}>delete</button>
+          <div className={"change"}>
+            <button className={"button"} onClick={(e) => changePlus(e, 1)}>+</button>
+            <input className={'value'} tabindex="-1" name={props.item.title} id={props.item.id} ref={ref} onChange={(e) => change(e)} value={props.item.number} />
+            <button className={"button"} onClick={(e) => changePlus(e, -1)}>-</button>
+            <p className={"price"}>{props.item.price * props.item.number + ' ' + '€'}</p>
           </div>
-          <button onClick={(e) => changePlus(e, 1)}>+</button>
-          <input className={'value'} tabindex="-1" name={props.item.title} id={props.item.id} ref={ref} onChange={(e) => change(e)} value={props.item.number} />
-          <button onClick={(e) => changePlus(e, -1)}>-</button>
+          <div className={"delete"}>
+            <button onClick={() => props.deleteItem('', id)}>
+              <img src={trash} />
+            </button>
+          </div>
         </div>
         <hr />
       </div>
