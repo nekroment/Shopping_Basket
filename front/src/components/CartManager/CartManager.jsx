@@ -1,16 +1,17 @@
 import React from 'react';
+import Cart from '../Cart/Cart.jsx';
 
 const CartManager = (props) => {
 
   const createCarts = () => {
-    return props.items.map(item => <Cart item={item} deleteItem={props.deleteItem} changeItem={rpops.changeItem}/>)
+    return props.items.map(item => <Cart focus={props.focus} key={item.id} item={item} deleteItem={props.deleteItem} changeItem={props.changeItem}/>)
   }
-
-  const carts = createCarts()
+  const carts = createCarts();
   return (
     <>
     <div>
-      {carts}
+    {carts}
+
     </div>
     <div>
       {props.cost}
