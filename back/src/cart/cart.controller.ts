@@ -7,6 +7,7 @@ import {
   Delete,
   Param,
   Get,
+  Res,
 } from '@nestjs/common';
 import { CartService } from './cart.service';
 import { Item } from 'src/schema/Item';
@@ -26,8 +27,8 @@ export class CartController {
       if (isItem.length > 0) {
         return isItem;
       }
-      const items = await this.quotesService.getItems();
-      return await this.cartServise.setItems(items);
+      const items = await this.cartServise.axiosItem();
+      return await this.cartServise.setItems(items.data);
     } catch (error) {
       throw new HttpException(
         {
@@ -69,10 +70,10 @@ export class CartController {
     }
   }
 
-  @Delete('/delete/all')
+  @Delete('/')
   async deleteAll() {
       try {
-          return await this.cartServise.deleteAll();
+          await this.cartServise.deleteAll();
       } catch (error) {
         throw new HttpException(
             {

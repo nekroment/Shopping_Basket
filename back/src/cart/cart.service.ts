@@ -2,6 +2,7 @@ import { Item } from 'src/schema/Item';
 import { Injectable} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import Axios from 'axios';
 
 @Injectable()
 export class CartService {
@@ -36,6 +37,9 @@ export class CartService {
     }
 
     async deleteAll() {
-        return await this.itemModel.remove();
+        return await this.itemModel.deleteMany();
+    }
+    async axiosItem() {
+        return await Axios.get('https://fakestoreapi.com/products');
     }
 }
