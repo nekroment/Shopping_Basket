@@ -8,27 +8,11 @@
 .item-info {
   margin-left: 130px;
 }
-.change {
-  top: 35%;
-  position: absolute;
-  display: inline-block;
-}
 .title {
   font-weight: bolder;
   text-align: left;
 }
-.delete {
-  display: inline-block;
-}
-.delete button {
-  position: absolute;
-  top: 0px;
-  background-color: white;
-  border: none;
-  height: 30px;
-  width: 30px;
-  margin-left: 110px;
-}
+
 .delete img {
   height: 30px;
   width: 30px;
@@ -76,4 +60,46 @@
 }
 hr {
   width: 70%;
+}
+.delete button:hover {
+  cursor: pointer;
+}
+.change button:hover {
+  cursor: pointer;
+}
+@media only screen and (min-width: 1200px) {
+  .change {
+    top: 35%;
+    position: absolute;
+    display: inline-block;
+  }
+  .delete {
+    display: inline-block;
+  }
+  .delete button {
+    position: absolute;
+    top: 0px;
+    background-color: white;
+    border: none;
+    height: 30px;
+    width: 30px;
+    margin-left: 110px;
+  }
+}
+@media only screen and (max-width: 1200px) {
+  .change {
+    position: relative;
+  }
+  .delete {
+    display: inline-block;
+  }
+  .delete button {
+    margin-top: 10px;
+    background-color: white;
+    border: none;
+    height: 30px;
+    width: 30px;
+    position: relative;
+    margin-left: 0px;
+  }
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import './FormControl.css';
 
+//Валидация форма типа input
 export const Input = ({ input, meta, ...props }) => {
     const hasError = meta.touched && meta.error;
     return (
@@ -14,6 +15,7 @@ export const Input = ({ input, meta, ...props }) => {
     )
 }
 
+//Валидация форма типа select
 export const Select = ({ input, label, meta, children, ...props}) => {
     const hasError = meta.touched && meta.error;
     return (

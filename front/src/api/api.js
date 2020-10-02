@@ -1,5 +1,4 @@
 import * as axios from 'axios';
-import { changeBasketItemThunkCreator } from '../redux/reducer/basketReducer';
 
 const instance = axios.create({
   baseURL: 'http://localhost:3000'

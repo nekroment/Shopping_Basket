@@ -40,7 +40,11 @@
     height: 30px;
 
 }
+.pay-button:hover {
+    cursor: pointer;
+}
 .pay-price {
+    width: 200px;
     margin-left: 310px;
     margin-top: 50px;
     position: absolute;

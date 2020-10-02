@@ -9,6 +9,7 @@ export const requierdField = (value) => {
     return "Field is required";
 }
 
+//Валидация номера телефона
 export const phoneValid = (phone) => {
     if (validatePhoneNumber.validate(phone)) {
         return undefined;

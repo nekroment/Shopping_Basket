@@ -3,11 +3,14 @@ import { basketAPI, userAPI } from '../../api/api.js';
 const SET_BASKET_ITEMS = 'SET_BASKET_ITEMS';
 const SET_COST = 'SET_COST';
 const CHANGE_CART = 'CHANGE_CART';
+const IS_LOADING = 'IS_LOADING'
 
+//Начальное значение состояния
 let initialState = {
   items: [],
   cost: 0,
-  focus: undefined
+  focus: undefined,
+  isLoading: true
 }
 
 const basketReducer = (state = initialState, action) => {
@@ -34,26 +37,36 @@ const basketReducer = (state = initialState, action) => {
       }
       return stateCopy;
     }
+    case IS_LOADING: {
+      let stateCopy = {...state};
+      stateCopy.isLoading = action.isLoading;
+      return stateCopy;
+    }
     default: return state;
   }
 }
 
+//Action creators
+export const setIsLoading = (isLoading) => ({type: IS_LOADING, isLoading}); 
 export const changeCart = (id, isBt) => ({ type: CHANGE_CART, id, isBt });
 export const setCost = () => ({ type: SET_COST });
 export const setBasketItems = (items) => ({ type: SET_BASKET_ITEMS, items });
 
+//Запрос на получение товаров
 export const setBasketItemsThunkCreator = () => {
   return async (dispatch) => {
     try {
       let responce = await basketAPI.getItems();
       dispatch(setBasketItems(responce.data));
       dispatch(setCost());
+      dispatch(setIsLoading(false));
     } catch (error) {
 
     }
   }
 };
 
+//Запрос на удаление товара
 export const deleteBasketItemThunkCreator = (user = undefined, id = undefined) => {
   return async (dispatch) => {
     try {
@@ -70,6 +83,7 @@ export const deleteBasketItemThunkCreator = (user = undefined, id = undefined) =
   }
 };
 
+//Запрос на изменение товара
 export const changeBasketItemThunkCreator = (id, number, isBt = '') => {
   return async (dispatch) => {
     try {

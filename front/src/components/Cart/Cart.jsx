@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import './Cart.css';
 import trash from '../../img/trash.png';
 
@@ -9,7 +9,7 @@ const Cart = (props) => {
   const id = props.item.id;
 
   useEffect(() => {
-    if (ref && props.focus == props.item.id) {
+    if (ref && props.focus === props.item.id) {
       ref.current.focus()
     }
   })
@@ -31,7 +31,7 @@ const Cart = (props) => {
       <div className={'cart'}>
         <div className={"block"}>
           <div className={"item"}>
-            <img className={'item-img'} src={props.item.image} />
+            <img className={'item-img'} src={props.item.image} alt={''}/>
             <div className={'item-info'}>
               <div className={"title"}>
                 <p>{props.item.title}</p>
@@ -43,13 +43,15 @@ const Cart = (props) => {
           </div>
           <div className={"change"}>
             <button className={"button"} onClick={(e) => changePlus(e, 1)}>+</button>
-            <input className={'value'} tabindex="-1" name={props.item.title} id={props.item.id} ref={ref} onChange={(e) => change(e)} value={props.item.number} />
+            <input className={'value'} tabIndex="-1" name={props.item.title} id={props.item.id} ref={ref} onChange={(e) => change(e)} value={props.item.number} />
             <button className={"button"} onClick={(e) => changePlus(e, -1)}>-</button>
-            <p className={"price"}>{props.item.price * props.item.number + ' ' + '€'}</p>
+            <p className={"price"}>{props.item.price * props.item.number
+             + ' '
+             + '€'}</p>
           </div>
           <div className={"delete"}>
             <button onClick={() => props.deleteItem('', id)}>
-              <img src={trash} />
+              <img src={trash} alt={''}/>
             </button>
           </div>
         </div>

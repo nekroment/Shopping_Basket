@@ -8,29 +8,33 @@ import './Shipping.css';
 const maxLengthNameField = maxLength(30);
 const minLengthNameField = minLength(3);
 
+//Форма оплаты
 const BuyForm = (props) => {
-    const { pristine, reset, submitting, invalid } = props;
-    console.log(props.cost);
+    const { pristine, submitting, invalid } = props;
+
     return (
         <div> 
             <form onSubmit={props.handleSubmit}>
-                <p><span>Name</span> <Field component={Input} type={'text'} name={"name"} placeholder={"Name"} validate={[requierdField, minLengthNameField, maxLengthNameField]} /></p>
-                <p><span>Address</span> <Field component={Input} type={'text'} name={"address"} placeholder={"Adress"} validate={[requierdField]} /></p>
-                <p><span>Phone</span> <Field component={Input} type={'input'} name={"phone"} placeholder={"Number"} validate={[requierdField, phoneValid]} /></p>
-                <p><span>E-mail</span> <Field component={Input} type={"text"} name={"email"} placeholder={"email"} validate={[requierdField, emailValid]} /></p>
-                <p><span>Shoping options</span> <Field name={'options'} component={Select} validate={[requierdField]}>
-                    <option selected></option>
+                <span>Name</span> <Field component={Input} type={'text'} name={"name"} placeholder={"Name"} validate={[requierdField, minLengthNameField, maxLengthNameField]} />
+                <span>Address</span> <Field component={Input} type={'text'} name={"address"} placeholder={"Adress"} validate={[requierdField]} />
+                <span>Phone</span> <Field component={Input} type={'input'} name={"phone"} placeholder={"Number"} validate={[requierdField, phoneValid]} />
+                <span>E-mail</span> <Field component={Input} type={"text"} name={"email"} placeholder={"email"} validate={[requierdField, emailValid]} />
+                <span>Shoping options</span> <Field name={'options'} component={Select} validate={[requierdField]}>
+                    <option value={''}></option>
                     <option disabled={props.cost >= 300} value="Express shipping (additional 9.99 €)">Express shipping</option>
                     <option disabled={props.cost >= 300} value="Courier shipping (additional 19.99 €)">Courier shipping</option>
                     <option disabled={props.cost < 300} value="free">Free shipping</option>
-                </Field></p>
-                <p className={"pay-price"}>{props.cost + ' ' + '€'}</p>
+                </Field>
+                <p className={"pay-price"}>{props.cost
+                 + ' '
+                  + '€'}</p>
                 <button className={'pay-button'} disabled={invalid || pristine || submitting}>PAY</button>
             </form>
         </div>
     )
 }
 
+//Подключение к редаксу
 const BuyReduxForm = reduxForm({
     form: 'shipping'
 })(BuyForm);
@@ -38,13 +42,15 @@ const BuyReduxForm = reduxForm({
 const Shipping = (props) => {
 
     const [isBuy, setIsBuy] = useState(false)
+
     const onSubmit = (formData) => {
         let options = 0;
-        if (formData.options == 'Courier shipping') {
+        if (formData.options === 'Courier shipping') {
             options = 19.99;
-        } else if (formData.options == 'Express shipping') {
+        } else if (formData.options === 'Express shipping') {
             options = 9.99;
         }
+        //Создание и сохранение данных пользователя и суммы оплаты
         const user = {
             name: formData.name,
             address: formData.address,
